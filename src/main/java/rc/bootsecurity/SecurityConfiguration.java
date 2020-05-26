@@ -19,14 +19,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.inMemoryAuthentication()
 			.withUser("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN")
 			.and()
-			.withUser("user").password(passwordEncoder().encode("user")).roles("USER");
+			.withUser("user").password(passwordEncoder().encode("user")).roles("USER")
+			.and()
+			.withUser("manager").password(passwordEncoder().encode("manager")).roles("MANAGER");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		//Here is what happening here: 
+		//previously there is only one authorization which was anyRequest().authorize()
+		//but now even authorized user will be given access based on their role.
+		///profile/index : means access to profile/index url
+		//profile/** means any route matches profile then anything.
 		http
 			.authorizeRequests()
-			.anyRequest().authenticated()
+            .antMatchers("/index.html").permitAll() //home page accessed by everyone
+            .antMatchers("/profile/**").authenticated() //any authenticated user can access profile page
+            .antMatchers("/admin/**").hasRole("ADMIN") //only admin can access the admin routes
+            .antMatchers("/management/**").hasAnyRole("ADMIN" , "MANAGER") //only admin and management role can access management pages
 			.and()
 			.httpBasic();
 	}
