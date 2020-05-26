@@ -17,11 +17,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
 			.inMemoryAuthentication()
-			.withUser("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN")
+			.withUser("admin").password(passwordEncoder().encode("admin123"))
+			.roles("ADMIN")
+			.authorities("ACCESS_TEST1" , "ACCESS_TEST2")
 			.and()
-			.withUser("user").password(passwordEncoder().encode("user")).roles("USER")
+			.withUser("user").password(passwordEncoder().encode("user"))
+			.roles("USER")
 			.and()
-			.withUser("manager").password(passwordEncoder().encode("manager")).roles("MANAGER");
+			.withUser("manager").password(passwordEncoder().encode("manager"))
+			.roles("MANAGER")
+			.authorities("ACCESS_TEST1");
 	}
 
 	@Override
@@ -37,7 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/profile/**").authenticated() //any authenticated user can access profile page
             .antMatchers("/admin/**").hasRole("ADMIN") //only admin can access the admin routes
             .antMatchers("/management/**").hasAnyRole("ADMIN" , "MANAGER") //only admin and management role can access management pages
-            .antMatchers("/api/public/**").authenticated() //protecting rest resources , look there is a public rest api controller that defines public resources.
+            .antMatchers("/api/public/test1").hasAuthority("ACCESS_TEST1")
+            .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
 			.and()
 			.httpBasic();
 	}
