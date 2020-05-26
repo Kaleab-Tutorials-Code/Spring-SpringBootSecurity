@@ -51,6 +51,9 @@
         
          <!-- Security -->
          <!-- This will import some default security feature for our spring boot application.-->
+         <!-- Just by adding this dependencies you got a default login page for your api
+            default user name : user and defaut password : will be generated when we run the program 
+            ** The default behaviour can be changed by writing some configuration inside application.properties -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
