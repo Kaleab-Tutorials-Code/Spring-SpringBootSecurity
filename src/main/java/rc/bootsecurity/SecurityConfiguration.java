@@ -37,6 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/profile/**").authenticated() //any authenticated user can access profile page
             .antMatchers("/admin/**").hasRole("ADMIN") //only admin can access the admin routes
             .antMatchers("/management/**").hasAnyRole("ADMIN" , "MANAGER") //only admin and management role can access management pages
+            .antMatchers("/api/public/**").authenticated() //protecting rest resources , look there is a public rest api controller that defines public resources.
 			.and()
 			.httpBasic();
 	}
