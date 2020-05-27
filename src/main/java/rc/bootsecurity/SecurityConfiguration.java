@@ -18,15 +18,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		auth
 			.inMemoryAuthentication()
 			.withUser("admin").password(passwordEncoder().encode("admin123"))
-			.roles("ADMIN")
-			//.authorities("ACCESS_TEST1" , "ACCESS_TEST2")
+			//.roles("ADMIN")
+			.authorities("ACCESS_TEST1" , "ACCESS_TEST2" , "ROLE_ADMIN")
 			.and()
 			.withUser("user").password(passwordEncoder().encode("user"))
 			.roles("USER")
 			.and()
 			.withUser("manager").password(passwordEncoder().encode("manager"))
-			.roles("MANAGER");
-			//.authorities("ACCESS_TEST1");
+			//.roles("MANAGER")
+			.authorities("ACCESS_TEST1" , "ROLE_MANAGER");
 	}
 
 	@Override
