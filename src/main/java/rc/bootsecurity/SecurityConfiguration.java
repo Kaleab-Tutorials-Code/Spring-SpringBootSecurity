@@ -38,8 +38,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//profile/** means any route matches profile then anything.
 		http
 			.authorizeRequests()
-            .antMatchers("/index.html").permitAll() //home page accessed by everyone
-            .antMatchers("/profile/**").authenticated() //any authenticated user can access profile page
+			.antMatchers("/index.html").permitAll() //home page accessed by everyone
+			.antMatchers("/profile/**").authenticated() //any authenticated user can access profile page
             .antMatchers("/admin/**").hasRole("ADMIN") //only admin can access the admin routes
             .antMatchers("/management/**").hasAnyRole("ADMIN" , "MANAGER") //only admin and management role can access management pages
             .antMatchers("/api/public/test1").hasAuthority("ACCESS_TEST1")
