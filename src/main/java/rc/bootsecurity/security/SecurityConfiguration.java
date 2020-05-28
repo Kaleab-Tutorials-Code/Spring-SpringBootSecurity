@@ -40,11 +40,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/public/users").hasRole("ADMIN")
                 .and()
                 .formLogin()
+                //.loginProcessingUrl("/signin") : this can be used if the login button post to url "/signin" which is different from defualt "/login"
                 .loginPage("/login").permitAll()
+//                .usernameParameter("textUserName")  : if the username id used inside login page is different from default you can tell spring like this
+//                .passwordParameter("txtpassWord") : if the password id is used inside login page different from default you can tell spring like this
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
                 .and()
                 .rememberMe().tokenValiditySeconds(2592000).key("mySecret!");
+                //.rememberMeParameter("checkBoxRememberMe") : if the remember-me checkbox id is used inside login page different from default you can tell spring like this 
     }
 
     //this is authentication provider configuration. everything UserpricipalDetailService is done for it.
