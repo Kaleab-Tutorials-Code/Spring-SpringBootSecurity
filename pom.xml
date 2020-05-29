@@ -59,6 +59,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <!-- Optional - This one is used to include some security features inside our thymeleaf views -->
+        <!-- This should be there for this one to work -->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
